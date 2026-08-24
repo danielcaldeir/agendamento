@@ -50,9 +50,45 @@
                             </a>
                         </div>
                         <ul class="pro-body">
-                            <li><a href="{{ route('appointments.index') }}" class="dropdown-item"><i class="feather icon-calendar"></i> Agendamentos</a></li>
-                            <li><a href="{{ route('users.edit', $user->id) }}" class="dropdown-item"><i class="feather icon-settings"></i> Configuração</a></li>
-                            <li><a href="{{ route('logout') }}" class="dropdown-item"><i class="feather icon-log-out"></i> Logout</a></li>
+                            <li>
+                                <a href="{{ route('dashboard') }}" class="dropdown-item">
+                                    <i class="feather icon-home"></i> Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('appointments.index') }}" class="dropdown-item">
+                                    <i class="feather icon-calendar"></i> Agendamentos
+                                </a>
+                            </li>
+                            @if ($user->type !== 'doctor')
+                                <li>
+                                    <a href="{{ route('doctors.index') }}" class="dropdown-item">
+                                        <i class="feather icon-users"></i> Médicos
+                                    </a>
+                                </li>
+                            @endif
+                            @if ($user->type === 'admin')
+                                <li>
+                                    <a href="{{ route('patients.index') }}" class="dropdown-item">
+                                        <i class="feather icon-user"></i>  Pacientes
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('admins.index') }}" class="dropdown-item">
+                                        <i class="feather icon-lock"></i>  Administradores
+                                    </a>
+                                </li>
+                            @endif
+                            <li>
+                                <a href="{{ route('users.edit', $user->id) }}" class="dropdown-item">
+                                    <i class="feather icon-settings"></i> Configuração
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('logout') }}" class="dropdown-item">
+                                    <i class="feather icon-log-out"></i> Logout
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
