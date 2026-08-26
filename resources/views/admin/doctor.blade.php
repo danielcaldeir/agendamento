@@ -136,51 +136,59 @@
                 dateClick: async function(info) {
                     if (info.date.getHours() === 13) return;
                     const apiUrl = `/patients/available?date=${info.dateStr}`;
-                    const apiResponse = await fetch(apiUrl).then(response => response.json());
+                    const apiResponse = await fetch(apiUrl).then(response => response.json()).catch(console.error);
 
-                    var html = `
-                        <table id="tb-patients" class="display" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Imagem</th>
-                                    <th>Nome</th>
-                                    <th>Editar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                    `;
-                    apiResponse.forEach(patient => {
-                        html += `
-                            <tr>
-                                <td style="width: 60px;">
-                                    <img
-                                        class="rounded-circle"
-                                        style="width:40px;"
-                                        src="/img/pictures/${patient.image}"
-                                        alt="patient-image"
-                                    >
-                                </td>
-                                <td><h5>${patient.name}</h5></td>
-                                <td>
-                                    <button class="btn btn-icon btn-outline-primary" onclick="setAppointment('${info.dateStr}', '{{ $doctor->id }}', '{{ $doctor->name }}', ${patient.id}, '${patient.name}')">
-                                        <i class="feather icon-play"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                    if ( !isNaN(new Date(apiResponse)) ) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'A data tem que ser maior que a data atual.'
+                        })
+                    } else {
+                        var html = `
+                            <table id="tb-patients" class="display" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Imagem</th>
+                                        <th>Nome</th>
+                                        <th>Editar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                         `;
-                    });
-                    html += `
-                            </tbody>
-                        </table>
-                    `;
 
-                    Swal.fire({
-                        title: `Pacientes disponíveis:`,
-                        html: html,
-                        width: '80%',
-                        showConfirmButton: false,
-                        showCloseButton: true
-                    });
+                        apiResponse.forEach(patient => {
+                            html += `
+                                <tr>
+                                    <td style="width: 60px;">
+                                        <img
+                                            class="rounded-circle"
+                                            style="width:40px;"
+                                            src="/img/pictures/${patient.image}"
+                                            alt="patient-image"
+                                        >
+                                    </td>
+                                    <td><h5>${patient.name}</h5></td>
+                                    <td>
+                                        <button class="btn btn-icon btn-outline-primary" onclick="setAppointment('${info.dateStr}', '{{ $doctor->id }}', '{{ $doctor->name }}', ${patient.id}, '${patient.name}')">
+                                            <i class="feather icon-play"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+                        html += `
+                                </tbody>
+                            </table>
+                        `;
+
+                        Swal.fire({
+                            title: `Pacientes disponíveis:`,
+                            html: html,
+                            width: '80%',
+                            showConfirmButton: false,
+                            showCloseButton: true
+                        });
+                    }
 
                     // $('#tb-patients').DataTable();
 

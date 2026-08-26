@@ -131,37 +131,44 @@
                 dateClick: async function(info) {
                     if (info.date.getHours() === 13) return;
                     const apiUrl = `/doctors/available?date=${info.dateStr}`;
-                    const apiResponse = await fetch(apiUrl).then(response => response.json());
+                    const apiResponse = await fetch(apiUrl).then(response => response.json()).catch(console.error);
 
-                    var html = '<div class="row">';
-                    apiResponse.forEach(doctor => {
-                        html += `
-                            <div class="col-md-6 col-xl-6">
-                                <div class="card hover-md" onclick="setAppointment('${info.dateStr}', '${doctor.id}', '${doctor.name}', '{{ $patient->id }}', '{{ $patient->name }}')">
-                                    <div class="card-block">
-                                        <div class="row align-items-center justify-content-center">
-                                            <div class="col-auto">
-                                                <img class="img-fluid rounded-circle" style="width:80px;" src="/img/pictures/${doctor.image}" alt="doctor">
-                                            </div>
-                                            <div class="col">
-                                                <h5>${doctor.name}</h5>
-                                                <span>${doctor.specialty ?? 'Geral'}</span>
+                    if ( !isNaN(new Date(apiResponse)) ) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'A data tem que ser maior que a data atual.'
+                        })
+                    } else {
+                        var html = '<div class="row">';
+                        apiResponse.forEach(doctor => {
+                            html += `
+                                <div class="col-md-6 col-xl-6">
+                                    <div class="card hover-md" onclick="setAppointment('${info.dateStr}', '${doctor.id}', '${doctor.name}', '{{ $patient->id }}', '{{ $patient->name }}')">
+                                        <div class="card-block">
+                                            <div class="row align-items-center justify-content-center">
+                                                <div class="col-auto">
+                                                    <img class="img-fluid rounded-circle" style="width:80px;" src="/img/pictures/${doctor.image}" alt="doctor">
+                                                </div>
+                                                <div class="col">
+                                                    <h5>${doctor.name}</h5>
+                                                    <span>${doctor.specialty ?? 'Geral'}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        `;
-                    });
-                    html += '</div>';
+                            `;
+                        });
+                        html += '</div>';
 
-                    Swal.fire({
-                        title: `Médicos disponíveis:`,
-                        html: html,
-                        width: '80%',
-                        showConfirmButton: false,
-                        showCloseButton: true
-                    });
+                        Swal.fire({
+                            title: `Médicos disponíveis:`,
+                            html: html,
+                            width: '80%',
+                            showConfirmButton: false,
+                            showCloseButton: true
+                        });
+                    }
 
                     // !! ANTIGO !!
                     // Swal.fire({

@@ -7,6 +7,7 @@ use App\Http\Controllers\Services\UserService;
 // use App\Models\Doctor;
 use App\Http\Requests\StoreDoctorRequest;
 use App\Http\Requests\UpdateDoctorRequest;
+use Carbon\Carbon;
 // use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -50,15 +51,21 @@ class DoctorController extends Controller
 
     public function getAvailableByDate(Request $request)
     {
-        $serviceResponse = $this->doctorService->getAvailableByDate(
-            $request->date
-        );
+        if (Carbon::parse(($request->date))->toDateTimeString() > Carbon::now()->toDateTimeString()){
 
-        if (!$serviceResponse->getSuccess()) {
-            return response()->json($serviceResponse->getErrors());
+            $serviceResponse = $this->doctorService->getAvailableByDate(
+                $request->date
+            );
+
+            if (!$serviceResponse->getSuccess()) {
+                return response()->json($serviceResponse->getErrors());
+            }
+
+            return response()->json($serviceResponse->getData());
+        } else {
+            return response()->json($request->date);
+            // return redirect(route('appointments.index'))->withError('A data tem que ser maior que a data atual.');
         }
-
-        return response()->json($serviceResponse->getData());
     }
 
     /**

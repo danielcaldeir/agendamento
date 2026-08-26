@@ -10,6 +10,7 @@ use App\Http\Controllers\Services\UserService;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Services\PatientService;
+use Carbon\Carbon;
 
 class PatientController extends Controller
 {
@@ -41,15 +42,21 @@ class PatientController extends Controller
 
     public function getAvailableByDate(Request $request)
     {
-        $serviceResponse = $this->patientService->getAvailableByDate(
-            $request->date
-        );
+        if (Carbon::parse(($request->date))->toDateTimeString() > Carbon::now()->toDateTimeString()){
 
-        if (!$serviceResponse->getSuccess()) {
-            return response()->json($serviceResponse->getErrors());
+            $serviceResponse = $this->patientService->getAvailableByDate(
+                $request->date
+            );
+
+            if (!$serviceResponse->getSuccess()) {
+                return response()->json($serviceResponse->getErrors());
+            }
+
+            return response()->json($serviceResponse->getData());
+        } else {
+            return response()->json($request->date);
+            // return redirect(route('appointments.index'))->withError('A data tem que ser maior que a data atual.');
         }
-
-        return response()->json($serviceResponse->getData());
     }
 
     /**

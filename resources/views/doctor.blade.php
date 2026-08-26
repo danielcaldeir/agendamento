@@ -100,26 +100,36 @@
                 ],
                 dateClick: async function(info) {
                     if (info.date.getHours() === 13) return;
+                    let dateObj = new Date(info.dateStr);
+                    let dateNow = new Date();
 
-                    Swal.fire({
-                        title: 'Tem certeza?',
-                        text: `Agendar consulta com {{ $doctor->name }}?`,
-                        icon: 'warning',
-                        showCancelButton: true,
-                        customClass: {
-                            confirmButton: 'btn btn-outline-success',
-                            cancelButton: 'btn btn-outline-danger'
-                        },
-                        buttonsStyling: false,
-                        confirmButtonText: 'Sim, pode agendar!',
-                        cancelButtonText: 'Cancelar',
-                        reverseButtons: true
-                    }).then((result) => {
-                        if (result.value) {
-                            $('#send_date').val(info.dateStr);
-                            $('#send_form').submit();
-                        }
-                    });
+                    if ( !(dateObj > dateNow) ) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'A data tem que ser maior que a data atual.'
+                        })
+                    } else {
+
+                        Swal.fire({
+                            title: 'Tem certeza?',
+                            text: `Agendar consulta com {{ $doctor->name }}?`,
+                            icon: 'warning',
+                            showCancelButton: true,
+                            customClass: {
+                                confirmButton: 'btn btn-outline-success',
+                                cancelButton: 'btn btn-outline-danger'
+                            },
+                            buttonsStyling: false,
+                            confirmButtonText: 'Sim, pode agendar!',
+                            cancelButtonText: 'Cancelar',
+                            reverseButtons: true
+                        }).then((result) => {
+                            if (result.value) {
+                                $('#send_date').val(info.dateStr);
+                                $('#send_form').submit();
+                            }
+                        });
+                    }
                 },
             });
             calendar.render();
