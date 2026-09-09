@@ -1,10 +1,83 @@
-@extends('layouts.pageInitial')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Nosso principal objetivo é que nossos pacientes encontrem o médico perfeito e agende uma consulta do modo mais fácil possível. Essa jornada precisa ser agradável, por isso sempre estamos dispostos a ajudar." />
+        <meta name="keywords" content="medico, agendar, consulta, online, agendar consulta, clinica"/>
+        <meta name="author" content="Eduardo Nascimento"/>
+        <title>MedMazza | Agendamento de Consultas Online</title>
+        <link rel="icon" href="{{ asset('img/landing/favicon.png') }}">
+        <!-- Bootstrap CSS -->
+        {{-- <link rel="stylesheet" href="{{ asset('css/landing/bootstrap.min.css') }}"> --}}
+        <link rel="stylesheet" href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}">
+        <!-- animate CSS -->
+        {{-- <link rel="stylesheet" href="{{ asset('css/landing/animate.css') }}"> --}}
+        <link rel="stylesheet" href="{{ asset('plugins/animate.css/animate.min.css') }}">
+        <!-- owl carousel CSS -->
+        {{-- <link rel="stylesheet" href="{{ asset('css/landing/owl.carousel.min.css') }}"> --}}
+        <link rel="stylesheet" href="{{ asset('plugins/OwlCarousel/dist/assets/owl.carousel.min.css') }}">
+        <!-- themify CSS -->
+        <!-- <link rel="stylesheet" href="{{ asset('css/landing/themify-icons.css') }}"> -->
+        <link rel="stylesheet" href="{{ asset('plugins/themify-icons/themify-icons.css') }}">
+        <!-- flaticon CSS -->
+        {{-- <link rel="stylesheet" href="{{ asset('css/landing/flaticon.css') }}"> --}}
+        <link rel="stylesheet" href="{{ asset('plugins/flaticon-uicons/css/all/all.css') }}">
+        <!-- magnific popup CSS -->
+        {{-- <link rel="stylesheet" href="{{ asset('css/landing/magnific-popup.css') }}"> --}}
+        <link rel="stylesheet" href="{{ asset('plugins/Magnific-Popup/dist/magnific-popup.css') }}">
+        <!-- nice select CSS -->
+        {{-- <link rel="stylesheet" href="{{ asset('css/landing/nice-select.css') }}"> --}}
+        <link rel="stylesheet" href="{{ asset('plugins/jquery-nice-select/css/nice-select.css') }}">
+        <!-- swiper CSS -->
+        {{-- <link rel="stylesheet" href="{{ asset('css/landing/slick.css') }}"> --}}
+        <link rel="stylesheet" href="{{ asset('plugins/slick/slick.css') }}">
+        <!-- style CSS -->
+        <link rel="stylesheet" href="{{ asset('css/landing/style.css') }}">
+    </head>
+    <body>
+        <!--::header part start::-->
+        <header class="main_menu home_menu">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-12">
+                        <nav class="navbar navbar-expand-lg navbar-light">
+                            <a class="navbar-brand" href="{{ route('index') }}"> <img src="{{ asset('img/landing/logo.png') }}"
+                                    alt="logo"> MedMazza
+                            </a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
 
-@section('title', ' Agendamento de Servicos ')
-@section('sidebar_dashboard', 'active')
+                            <div class="collapse navbar-collapse main-menu-item justify-content-center"
+                                id="navbarSupportedContent">
+                                <ul class="navbar-nav align-items-center">
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="#">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#about">Sobre</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#services">Serviços</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#doctors">Médicos</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a class="btn_2 d-none d-lg-block" href="{{ route('login') }}">Entrar</a>
+                            <a class="btn d-none d-lg-block" href="{{ route('register') }}">Registrar</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Header part end-->
 
-@section('content')
-    <!-- [ Main Content ] start -->
         <!-- banner part start-->
         <section class="banner_part">
             <div class="container">
@@ -179,5 +252,58 @@
             </div>
         </section>
         <!-- our depertment part end-->
-    <!-- [ Main Content ] end -->
-@endsection
+
+        <!-- footer part start-->
+        <footer class="footer-area">
+            <div class="copyright_part">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <p class="footer-text m-0 col-lg-8 col-md-12">
+                            Copyright &copy;<script>
+                                document.write(new Date().getFullYear());
+                            </script> All rights reserved
+                        </p>
+                        <div class="col-lg-4 col-md-12 text-center text-lg-right footer-social">
+                            <a href="#"><i class="ti-facebook"></i></a>
+                            <a href="#"> <i class="ti-twitter"></i> </a>
+                            <a href="#"><i class="ti-instagram"></i></a>
+                            <a href="#"><i class="ti-skype"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- footer part end-->
+
+        <!-- jquery plugins here-->
+        {{-- <script src="{{ asset('js/landing/jquery.min.js') }}"></script> --}}
+        <script src="{{ asset('plugins/jquery/js/jquery-3.7.1.min.js') }}"></script>
+
+        <!-- popper js -->
+        {{-- <script src="{{ asset('js/landing/popper.min.js') }}"></script> --}}
+        <script src="{{ asset('plugins/popper.js/popper.min.js') }}"></script>
+
+        <!-- bootstrap js -->
+        {{-- <script src="{{ asset('js/landing/bootstrap.min.js') }}"></script> --}}
+        <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+
+        <!-- owl carousel js -->
+        {{-- <script src="{{ asset('js/landing/owl.carousel.min.js') }}"></script> --}}
+        <script src="{{ asset('plugins/OwlCarousel/dist/owl.carousel.min.js') }}"></script>
+        {{-- <script src="{{ asset('js/landing/jquery.nice-select.min.js') }}"></script> --}}
+        <script src="{{ asset('plugins/jquery-nice-select/js/jquery.nice-select.min.js') }}"></script>
+
+        <!-- contact js -->
+        {{-- <script src="{{ asset('js/landing/jquery.ajaxchimp.min.js') }}"></script> --}}
+        <script src="{{ asset('plugins/jquery-ajaxchimp/jquery.ajaxchimp.min.js') }}"></script>
+        {{-- <script src="{{ asset('js/landing/jquery.form.js') }}"></script> --}}
+        <script src="{{ asset('plugins/jquery-form/dist/jquery.form.min.js') }}"></script>
+        {{-- <script src="{{ asset('js/landing/jquery.validate.min.js') }}"></script> --}}
+        <script src="{{ asset('plugins/jquery-validation/dist/jquery.validate.min.js') }}"></script>
+        <script src="{{ asset('js/landing/mail-script.js') }}"></script>
+        <script src="{{ asset('js/landing/contact.js') }}"></script>
+
+        <!-- custom js -->
+        <script src="{{ asset('js/landing/custom.js') }}"></script>
+    </body>
+</html>
